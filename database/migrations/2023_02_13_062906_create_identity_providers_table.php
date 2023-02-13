@@ -14,7 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('identity_providers', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users'); // 外部キー制約
+            $table->string('provider_id');
+            $table->string('provider_name');
+            $table->primary(['provider_name', 'provider_id']); // 複合キー
+            $table->unique(['user_id', 'provider_name']); // ユニーク制限
             $table->timestamps();
         });
     }

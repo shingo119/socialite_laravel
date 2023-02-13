@@ -41,4 +41,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    function IdentityProviders()
+    {
+        // IdentityProviderモデルと紐付ける 1対多の関係
+        return $this->hasMany(IdentityProvider::class);
+    }
 }
