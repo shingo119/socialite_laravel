@@ -38,7 +38,15 @@
                     {{ __('Forgot your password?') }}
                 </a>
             @endif
-
+            <a href="{{ url('/auth/redirect')}}">
+                <div class="bg-red-600 hover:bg-red-500 text-white rounded px-2 py-1 ml-4">Github Login</div>
+            </a>
+            <a href="{{ url('/auth_passport/redirect')}}">
+                <div class="bg-yellow-600 hover:bg-yellow-500 text-white rounded px-2 py-1 ml-4">Passport Login</div>
+            </a>
+            <a href="{{ url('/auth_line/redirect')}}">
+                <div class="bg-green-600 hover:bg-green-500 text-white rounded px-2 py-1 ml-4">line Login</div>
+            </a>
             <x-primary-button class="ml-3">
                 {{ __('Log in') }}
             </x-primary-button>

@@ -31,4 +31,29 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'github' => [
+        'client_id' => env('GITHUB_CLIENT_ID'),
+        'client_secret' => env('GITHUB_CLIENT_SECRET'),
+        'redirect' => env('APP_URL'). '/auth/callback',
+    ],
+
+    'laravelpassport' => [
+        'client_id' => env('LARAVELPASSPORT_CLIENT_ID'),
+        'client_secret' => env('LARAVELPASSPORT_CLIENT_SECRET'),
+        'redirect' => env('LARAVELPASSPORT_REDIRECT_URI'),
+        'host' => env('LARAVELPASSPORT_HOST'),
+    ],
+
+    'apple' => [
+        'client_id' => env('APPLE_CLIENT_ID'),
+        'client_secret' => env('APPLE_CLIENT_SECRET'),
+        'redirect' => env('APPLE_REDIRECT_URI')
+    ],
+
+    'line' => [
+        'client_id' => env('LINE_CLIENT_ID'),
+        'client_secret' => env('LINE_CLIENT_SECRET'),
+        'redirect' => env('LINE_REDIRECT_URI')
+    ],
+
 ];

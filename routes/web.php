@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\OAuthLoginController;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +19,55 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/auth/redirect', function() {
+    return Socialite::driver('github')->redirect();
+});
+
+Route::get('/auth/callback', function(){
+    // dd(Socialite::driver('github'));
+    $githubUser = Socialite::driver('github')->user();
+    // dd($githubUser);
+    $user = User::updateOrCreate([
+        'github_id' => $githubUser->id,
+    ],[
+        'name' => $githubUser->nickname,
+        'email' => $githubUser->email,
+        'github_token' => $githubUser->token,
+        'github_refresh_token' => $githubUser->refreshToken,
+    ]);
+
+
+    Auth::login($user);
+
+    return redirect('/dashboard');
+});
+
+Route::get('auth_passport/redirect', function() {
+    return Socialite::driver('laravelpassport')->redirect();
+});
+
+Route::get('auth_passport/callback', function(){
+    $passportUser = Socialite::driver('laravelpassport')->stateless()->user('id');
+    // dd($passportUser);
+    $user = User::updateOrCreate([
+        'passport_id' => $passportUser->id,
+    ],[
+        'name' => $passportUser->name,
+        'email' => $passportUser->email,
+    ]);
+
+    Auth::login($user);
+});
+
+Route::get('auth_line/redirect', function(){
+    return Socialite::driver('line')->redirect();
+});
+
+Route::get('auth_line/callback', function(){
+    $lineUser = Socialite::driver('line')->user();
+    dd($lineUser);
 });
 
 Route::get('/dashboard', function () {
